@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate')%>
+
+<div>
+    <div>
+        <h2>Add Stuff</h2>
+    </div>
+    <form action="/" method = "POST">
+        <label>
+            Purpose :
+            <input type="text" name = "Transaction[purpose]" id = "purpose" placeholder="Purpose">
+        </label>
+        <label>
+            Price
+            <input type = "number" name = "Transaction[price]" id = "price" placeholder="Price">
+        </label>
+        <label>
+            Description
+            <input type = "text" name = "Transaction[description]" id = "description" placeholder="description">
+        </label>
+        <input type="submit">
+    </form>
+    <form action="http://127.0.0.1:5000/graph" method = "GET">
+        <button>Show Graph</button>
+    </form>
+    <% x=0%>
+    <% for (let transaction of transaction_list){%>
+        <div>
+            Price:<%=transaction.price%>
+            Purpose:<%=transaction.purpose%>
+            Description:<%=transaction.description%>
+            <form action="<%=transaction.id%>?_method=DELETE", method = "POST">
+                <button>DELETE</button>
+            </form>
+        </div>
+        <% x+=transaction.price%>
+    <%}%>
+    Total : <%=x%>
+</div>
